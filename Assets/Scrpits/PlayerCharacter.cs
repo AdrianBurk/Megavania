@@ -16,18 +16,21 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rb2d;
 
+    Animator animator;
+
     private float horizontalInput;
 
-	
-	// Update is called once per frame
-	void Update () 
+
+    // Update is called once per frame
+    void Update()
     {
         // Gets player input
         horizontalInput = Input.GetAxis("Horizontal");
 
-        if(Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump"))
         {
             rb2d.AddForce(Vector2.up * jumpForce);
+            
         }
 	}
 

@@ -20,6 +20,11 @@ public class PlayerCharacter : MonoBehaviour
 
     private float horizontalInput;
 
+    public float dashSpeed;
+    private float dashTime;
+    public float startDashTime;
+    public float maxDashTime = 1.0f;
+
 
     // Update is called once per frame
     void Update()

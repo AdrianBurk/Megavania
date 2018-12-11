@@ -12,7 +12,7 @@ public class PlayerCharacter : MonoBehaviour
     private float maxSpeed = 25;
 
     [SerializeField]
-    private float jumpForce = 3000;
+    private float jumpForce = 50;
 
     [SerializeField]
     private Rigidbody2D rb2d;

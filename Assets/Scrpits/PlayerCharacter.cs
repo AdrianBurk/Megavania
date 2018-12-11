@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerCharacter : MonoBehaviour 
 {
     [SerializeField]
-    private float accelerationForce = 5;
+    private float accelerationForce = 100;
 
     [SerializeField]
-    private float maxSpeed = 5;
+    private float maxSpeed = 25;
 
     [SerializeField]
-    private float jumpForce = 10;
+    private float jumpForce = 3000;
 
     [SerializeField]
     private Rigidbody2D rb2d;

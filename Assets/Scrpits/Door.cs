@@ -37,7 +37,7 @@ public class Door : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Activate") && isPlayerInTrigger)
+        if (isPlayerInTrigger)
         {
             Debug.Log("Player entered door");
             SceneManager.LoadScene(scene2Load);

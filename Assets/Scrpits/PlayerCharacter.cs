@@ -28,7 +28,7 @@ public class PlayerCharacter : MonoBehaviour
 
     [SerializeField]
     private ContactFilter2D groundContactFilter;
-    Animator animator;
+    Animator anim;
 
     private float horizontalInput;
     private bool isOnGround;
@@ -38,6 +38,15 @@ public class PlayerCharacter : MonoBehaviour
     private float maxDashTime = 1.0f;
     private Collider2D[] groundHitDetectionResults = new Collider2D[16];
     private Checkpoint currentCheckpoint;
+    bool facingRight = true;
+    private AudioSource audioSource;
+    public bool isHurt = false;
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+
+    }
 
     // Update is called once per frame
     void Update()
@@ -51,6 +60,12 @@ public class PlayerCharacter : MonoBehaviour
     {
         UpdatePhysicsMaterial();
         Move();
+        anim.SetFloat("vSpeed", rb2d.velocity.y);
+        anim.SetFloat("Speed", Mathf.Abs(horizontalInput));
+        if (horizontalInput > 0 && !facingRight)
+            Flip();
+        else if (horizontalInput < 0 && facingRight)
+            Flip();
 
     }
 
@@ -75,6 +90,7 @@ public class PlayerCharacter : MonoBehaviour
     private void UpdateHorizontalInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
+        
     }
 
     private void HandleJumpInput()
@@ -82,6 +98,7 @@ public class PlayerCharacter : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isOnGround)
         {
             rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            audioSource.Play();
         }
     }
 
@@ -95,8 +112,10 @@ public class PlayerCharacter : MonoBehaviour
 
     public void Respawn()
     {
+        
         if (currentCheckpoint == null)
         {
+            
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         else
@@ -109,5 +128,12 @@ public class PlayerCharacter : MonoBehaviour
     public void SetCurrentCheckpoint(Checkpoint newCurrentCheckpoint)
     {
         currentCheckpoint = newCurrentCheckpoint;
+    }
+    void Flip()
+    {
+        facingRight = !facingRight;
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 }

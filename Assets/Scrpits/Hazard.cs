@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Hazard : MonoBehaviour
 {
+    public AudioSource hazardAudioSource;
+    private void Start()
+    {
+        hazardAudioSource = GetComponent<AudioSource>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))
@@ -12,6 +17,9 @@ public class Hazard : MonoBehaviour
 
             Debug.Log("Player entered Hazard");
             PlayerCharacter player = collision.GetComponent<PlayerCharacter>();
+            hazardAudioSource.Play();
+            player.isHurt = true;
+            
             player.Respawn();
            
         }
